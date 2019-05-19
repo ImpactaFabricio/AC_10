@@ -1,0 +1,36 @@
+import random
+
+#Condição de parada
+def quicksort(v, p, r):
+
+    if p < r:
+        q = particionar(v, p, r)
+        quicksort(v, p, q-1) #pivotar a esquerda (Ordenar os elementos menores do que o pivô)
+        quicksort(v, q+1, r) #pivotar a direita  (Ordenar os elementos maiores do que o pivô)
+
+def particionar (v, p, r):
+    x = v[p] #escolhendo o pivô (é o primeiro elemento da esquerda)
+    i = p #destino final do pivô
+    j = p + 1 # contador para percorrer o restante do vetor
+
+    #Percorre o vetor
+    while j <= r:
+        if v[j] < x:
+            i += 1 #detectou-se um elemento menor que o pivô, incrementa o i
+            trocar(v, i, j)
+        j += 1 #passa para o próximo elemento
+    trocar(v, p, i)
+
+    return i
+
+def trocar(v, n, m):
+    temp = v[n]
+    v[n] = v[m]
+    v[m] = temp
+
+vetor = list(range(0,10))
+random.shuffle(vetor)
+
+quicksort(vetor, 0, len(vetor)-1)
+
+print (vetor)
